@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ملاحظاتي</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        #notes-container {
+            max-width: 400px;
+            width: 100%;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        #notes-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .note {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+            cursor: pointer;
+        }
+
+        #add-note-input,
+        #add-note-textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        #add-note-button {
+            display: block;
+            width: 100%;
+            padding: 8px;
+            margin-top: 10px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #note-details {
+            display: none;
+            margin-top: 20px;
+        }
+
+        #note-title {
+            color: #333;
+        }
+
+        #note-content {
+            color: #555;
+        }
+
+        button {
+            background-color: #008CBA;
+            color: #fff;
+            padding: 8px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div id="notes-container">
+    <h2>ملاحظاتي موقع ملاحظات</h2>
+    <ul id="notes-list"></ul>
+    <div id="note-details">
+        <h3 id="note-title"></h3>
+        <p id="note-content"></p>
+        <button onclick="goBack()">رجوع</button>
+    </div>
+    <input type="text" id="add-note-input" placeholder="اسم الملاحظة">
+    <textarea id="add-note-textarea" placeholder="محتوى الملاحظة"></textarea>
+    <button id="add-note-button" onclick="addNote()">إضافة ملاحظة</button>
+</div>
+
+<script>
+    function addNote() {
+        var titleInput = document.getElementById('add-note-input');
+        var contentInput = document.getElementById('add-note-textarea');
+        var title = titleInput.value.trim();
+        var content = contentInput.value.trim();
+
+        if (title !== '' && content !== '') {
+            var notesList = document.getElementById('notes-list');
+            var newNote = document.createElement('li');
+            newNote.className = 'note';
+            newNote.textContent = title;
+            newNote.onclick = function() { showNoteDetails(title, content); };
+            notesList.appendChild(newNote);
+
+            // Clear the input fields
+            titleInput.value = '';
+            contentInput.value = '';
+        }
+    }
+
+    function showNoteDetails(title, content) {
+        var noteTitle = document.getElementById('note-title');
+        var noteContent = document.getElementById('note-content');
+        var noteDetails = document.getElementById('note-details');
+
+        noteTitle.textContent = title;
+        noteContent.textContent = content;
+        noteDetails.style.display = 'block';
+    }
+
+    function goBack() {
+        var noteDetails = document.getElementById('note-details');
+        noteDetails.style.display = 'none';
+    }
+</script>
+
+</body>
+</html>
